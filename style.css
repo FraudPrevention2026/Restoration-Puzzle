@@ -471,7 +471,25 @@ body {
   transform:
     scale(0.96);
 }
+.summary-btn {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  padding: 16px 20px;
+  background: rgba(255,255,255,0.9);
+  color: #6366f1;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 18px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  transition: transform 0.15s ease;
+}
 
+.summary-btn:active {
+  transform: scale(0.96);
+}
 
 /* =========================
    スマホ
