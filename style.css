@@ -1,314 +1,171 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+<!DOCTYPE html>
+<html lang="ja">
 
-body {
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
+<head>
+  <meta charset="UTF-8">
 
-  min-height: 100vh;
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  <title>本物？ニセモノ？仕分けパズル</title>
 
-  padding: 20px;
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+</head>
 
-  background:
-    linear-gradient(
-      135deg,
-      #8b5cf6,
-      #ec4899,
-      #06b6d4
-    );
+<body>
 
-  overflow-x: hidden;
-}
+  <main class="app">
 
-.app {
-  width: 100%;
-  max-width: 420px;
-}
+    <!-- =========================
+         ゲーム画面
+    ========================== -->
 
-.progress-area {
-  margin-bottom: 20px;
-}
+    <section id="gameScreen">
 
-.progress-text {
-  color: white;
-  font-size: 15px;
-  font-weight: bold;
+      <div class="top-area">
 
-  margin-bottom: 10px;
-  text-align: center;
-}
+        <div class="game-title">
+          🧐 本物？ニセモノ？仕分けパズル
+        </div>
 
-.progress-bar {
-  width: 100%;
-  height: 14px;
+        <div
+          class="progress-text"
+          id="progressText"
+        >
+          1 / 5
+        </div>
 
-  background: rgba(255,255,255,0.25);
+        <div class="progress-bar">
 
-  border-radius: 999px;
+          <div
+            class="progress-fill"
+            id="progressFill"
+          ></div>
 
-  overflow: hidden;
+        </div>
 
-  backdrop-filter: blur(10px);
-}
+      </div>
 
-.progress-fill {
-  width: 0%;
-  height: 100%;
 
-  background: white;
+      <div class="card">
 
-  border-radius: 999px;
+        <div class="question-label">
+          メッセージを仕分けよう！
+        </div>
 
-  transition: width 0.4s ease;
-}
 
-.card {
-  background: rgba(255,255,255,0.18);
+        <div class="sort-labels">
 
-  backdrop-filter: blur(16px);
+          <div class="fake-label">
+            ← ニセモノ
+          </div>
 
-  border-radius: 32px;
+          <div class="real-label">
+            本物 →
+          </div>
 
-  padding: 32px 24px;
+        </div>
 
-  box-shadow:
-    0 12px 40px rgba(0,0,0,0.25);
 
-  border: 1px solid rgba(255,255,255,0.2);
+        <div class="swipe-area">
 
-  text-align: center;
+          <div
+            class="message-card"
+            id="messageCard"
+          ></div>
 
-  animation: fadeIn 0.5s ease;
-}
+        </div>
 
-.question-number {
-  color: rgba(255,255,255,0.8);
 
-  font-size: 14px;
-  font-weight: bold;
-  letter-spacing: 1px;
+        <div class="swipe-hint">
+          👆 カードを左右にスワイプ！
+        </div>
 
-  margin-bottom: 18px;
-}
 
-.question-text {
-  color: white;
+        <div
+          class="feedback"
+          id="feedback"
+        ></div>
 
-  font-size: 28px;
-  font-weight: bold;
+      </div>
 
-  line-height: 1.5;
+    </section>
 
-  margin-bottom: 40px;
 
-  min-height: 120px;
+    <!-- =========================
+         結果画面
+    ========================== -->
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+    <section
+      id="resultScreen"
+      class="result-screen hidden"
+    >
 
-.button-group {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
+      <div class="result-card">
 
-.answer-btn {
-  border: none;
+        <div class="result-title">
+          🎉 仕分け終了！
+        </div>
 
-  border-radius: 20px;
 
-  padding: 18px 20px;
+        <div class="score-label">
+          あなたのスコア
+        </div>
 
-  font-size: 20px;
-  font-weight: bold;
 
-  cursor: pointer;
+        <div
+          class="score"
+          id="finalScore"
+        >
+          0 / 100
+        </div>
 
-  transition:
-    transform 0.15s ease,
-    opacity 0.2s ease,
-    box-shadow 0.2s ease;
 
-  box-shadow:
-    0 8px 20px rgba(0,0,0,0.15);
-}
+        <div
+          class="result-message"
+          id="resultMessage"
+        ></div>
 
-.answer-btn:active {
-  transform: scale(0.95);
-}
 
-.yes-btn {
-  background: linear-gradient(
-    135deg,
-    #ff6b6b,
-    #ff3d8b
-  );
+        <button
+          class="main-btn"
+          onclick="restartGame()"
+        >
+          🔄 もう一度遊ぶ
+        </button>
 
-  color: white;
-}
 
-.no-btn {
-  background: linear-gradient(
-    135deg,
-    #ffffff,
-    #e2e8f0
-  );
+        <a
+          class="summary-btn"
+          href="https://fraudprevention2026.github.io/summary/"
+        >
+          🏠 ゲーム一覧に戻る
+        </a>
 
-  color: #333;
-}
 
-.result-title {
-  color: white;
+        <a
+          class="police-btn"
+          href="https://www.police.pref.osaka.lg.jp/seikatsu/tokusyusagi/8083.html"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          🚨 大阪府警の特殊詐欺対策を見る
+        </a>
 
-  font-size: 30px;
-  font-weight: bold;
+      </div>
 
-  margin-bottom: 20px;
-}
+    </section>
 
-.result-risk {
-  font-size: 56px;
-  font-weight: bold;
+  </main>
 
-  color: #fff;
 
-  margin-bottom: 24px;
+  <script src="script.js"></script>
 
-  text-shadow:
-    0 4px 10px rgba(0,0,0,0.2);
-}
+</body>
 
-.result-type {
-  color: white;
-
-  font-size: 24px;
-  font-weight: bold;
-
-  margin-bottom: 20px;
-
-  line-height: 1.5;
-}
-
-.result-message {
-  color: rgba(255,255,255,0.95);
-
-  font-size: 18px;
-
-  line-height: 1.8;
-
-  margin-bottom: 30px;
-}
-
-.retry-btn {
-  border: none;
-
-  background: white;
-
-  color: #7c3aed;
-
-  font-size: 18px;
-  font-weight: bold;
-
-  padding: 16px 24px;
-
-  border-radius: 18px;
-
-  cursor: pointer;
-
-  margin-top: 20px;
-  
-  box-shadow:
-    0 10px 20px rgba(0,0,0,0.2);
-
-  transition:
-    transform 0.15s ease;
-}
-
-.retry-btn:active {
-  transform: scale(0.96);
-}
-
-
-/* ===== ゲーム一覧に戻るボタン ===== */
-
-.summary-btn {
-  display: block;
-
-  width: 100%;
-
-  margin-top: 12px;
-
-  padding: 16px 20px;
-
-  background: rgba(255,255,255,0.9);
-
-  color: #6366f1;
-
-  font-size: 16px;
-
-  font-weight: bold;
-
-  text-decoration: none;
-
-  text-align: center;
-
-  border-radius: 18px;
-
-  box-shadow:
-    0 10px 20px rgba(0,0,0,0.15);
-
-  transition:
-    transform 0.15s ease,
-    background 0.15s ease;
-}
-
-.summary-btn:active {
-  transform: scale(0.96);
-}
-
-
-.fade {
-  animation: fadeIn 0.5s ease;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-
-@media (max-width: 480px) {
-
-  .question-text {
-    font-size: 24px;
-    min-height: 100px;
-  }
-
-  .answer-btn {
-    font-size: 18px;
-    padding: 16px;
-  }
-
-  .result-risk {
-    font-size: 48px;
-  }
-}
+</html>
