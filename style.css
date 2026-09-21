@@ -1,171 +1,572 @@
-<!DOCTYPE html>
-<html lang="ja">
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-<head>
-  <meta charset="UTF-8">
+body {
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  min-height: 100vh;
 
-  <title>本物？ニセモノ？仕分けパズル</title>
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  <link
-    rel="stylesheet"
-    href="style.css"
-  >
-</head>
+  padding: 20px;
 
-<body>
+  background:
+    linear-gradient(
+      135deg,
+      #8b5cf6,
+      #ec4899,
+      #06b6d4
+    );
 
-  <main class="app">
+  overflow-x: hidden;
+}
 
-    <!-- =========================
-         ゲーム画面
-    ========================== -->
+.app {
+  width: 100%;
+  max-width: 420px;
+}
 
-    <section id="gameScreen">
+/* ===== 非表示 ===== */
 
-      <div class="top-area">
+.hidden {
+  display: none !important;
+}
 
-        <div class="game-title">
-          🧐 本物？ニセモノ？仕分けパズル
-        </div>
+/* ===== 上部 ===== */
 
-        <div
-          class="progress-text"
-          id="progressText"
-        >
-          1 / 5
-        </div>
+.top-area {
+  text-align: center;
+  margin-bottom: 20px;
+}
 
-        <div class="progress-bar">
+.game-title {
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
 
-          <div
-            class="progress-fill"
-            id="progressFill"
-          ></div>
+.progress-text {
+  color: rgba(255,255,255,0.9);
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
 
-        </div>
+.progress-bar {
+  width: 100%;
+  height: 14px;
 
-      </div>
+  background: rgba(255,255,255,0.25);
 
+  border-radius: 999px;
 
-      <div class="card">
+  overflow: hidden;
 
-        <div class="question-label">
-          メッセージを仕分けよう！
-        </div>
+  backdrop-filter: blur(10px);
+}
 
+.progress-fill {
+  width: 0%;
+  height: 100%;
 
-        <div class="sort-labels">
+  background: white;
 
-          <div class="fake-label">
-            ← ニセモノ
-          </div>
+  border-radius: 999px;
 
-          <div class="real-label">
-            本物 →
-          </div>
+  transition: width 0.4s ease;
+}
 
-        </div>
+/* ===== 問題カード ===== */
 
+.card {
+  background: rgba(255,255,255,0.18);
 
-        <div class="swipe-area">
+  backdrop-filter: blur(16px);
 
-          <div
-            class="message-card"
-            id="messageCard"
-          ></div>
+  border-radius: 30px;
 
-        </div>
+  padding: 24px 20px;
 
+  box-shadow:
+    0 12px 40px rgba(0,0,0,0.25);
 
-        <div class="swipe-hint">
-          👆 カードを左右にスワイプ！
-        </div>
+  border:
+    1px solid rgba(255,255,255,0.2);
 
+  text-align: center;
 
-        <div
-          class="feedback"
-          id="feedback"
-        ></div>
+  animation: fadeIn 0.5s ease;
+}
 
-      </div>
+.question-label {
+  color: white;
 
-    </section>
+  font-size: 20px;
 
+  font-weight: bold;
 
-    <!-- =========================
-         結果画面
-    ========================== -->
+  margin-bottom: 18px;
+}
 
-    <section
-      id="resultScreen"
-      class="result-screen hidden"
-    >
+/* ===== 復元エリア ===== */
 
-      <div class="result-card">
+.answer-area {
+  background: white;
 
-        <div class="result-title">
-          🎉 仕分け終了！
-        </div>
+  min-height: 90px;
 
+  border-radius: 20px;
 
-        <div class="score-label">
-          あなたのスコア
-        </div>
+  padding: 16px;
 
+  margin-bottom: 18px;
 
-        <div
-          class="score"
-          id="finalScore"
-        >
-          0 / 100
-        </div>
+  text-align: left;
 
+  box-shadow:
+    0 8px 20px rgba(0,0,0,0.15);
+}
 
-        <div
-          class="result-message"
-          id="resultMessage"
-        ></div>
+.answer-placeholder {
+  color: #999;
 
+  text-align: center;
 
-        <button
-          class="main-btn"
-          onclick="restartGame()"
-        >
-          🔄 もう一度遊ぶ
-        </button>
+  font-size: 14px;
 
+  padding: 15px 5px;
+}
 
-        <a
-          class="summary-btn"
-          href="https://fraudprevention2026.github.io/summary/"
-        >
-          🏠 ゲーム一覧に戻る
-        </a>
+.answer-part {
+  display: block;
 
+  width: 100%;
 
-        <a
-          class="police-btn"
-          href="https://www.police.pref.osaka.lg.jp/seikatsu/tokusyusagi/8083.html"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          🚨 大阪府警の特殊詐欺対策を見る
-        </a>
+  padding: 12px;
 
-      </div>
+  margin-bottom: 8px;
 
-    </section>
+  background: #f3f4f6;
 
-  </main>
+  color: #333;
 
+  border: 1px solid #e5e7eb;
 
-  <script src="script.js"></script>
+  border-radius: 12px;
 
-</body>
+  font-size: 15px;
 
-</html>
+  line-height: 1.5;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.15s ease,
+    background 0.15s ease;
+}
+
+.answer-part:last-child {
+  margin-bottom: 0;
+}
+
+.answer-part:active {
+  transform: scale(0.98);
+}
+
+/* ===== パーツエリア ===== */
+
+.parts-area {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+.part-button {
+  width: 100%;
+
+  padding: 14px 16px;
+
+  background: white;
+
+  color: #333;
+
+  border: none;
+
+  border-radius: 15px;
+
+  font-size: 15px;
+
+  line-height: 1.5;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 6px 15px rgba(0,0,0,0.12);
+
+  transition:
+    transform 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.part-button:active {
+  transform: scale(0.97);
+}
+
+/* 選択済み */
+
+.part-button.used {
+  opacity: 0.35;
+}
+
+/* ===== リセットボタン ===== */
+
+.reset-btn {
+  width: 100%;
+
+  border:
+    2px solid rgba(255,255,255,0.7);
+
+  background:
+    rgba(255,255,255,0.15);
+
+  color: white;
+
+  font-size: 16px;
+
+  font-weight: bold;
+
+  padding: 13px 20px;
+
+  border-radius: 16px;
+
+  cursor: pointer;
+
+  margin-top: 14px;
+
+  transition:
+    transform 0.15s ease,
+    background 0.15s ease;
+}
+
+.reset-btn:active {
+  transform: scale(0.96);
+}
+
+/* ===== 判定メッセージ ===== */
+
+.feedback {
+  display: none;
+
+  margin-top: 16px;
+
+  padding: 18px;
+
+  background: rgba(255,255,255,0.95);
+
+  color: #333;
+
+  border-radius: 18px;
+
+  line-height: 1.7;
+
+  font-size: 15px;
+
+  text-align: left;
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,0.15);
+}
+
+.feedback.show {
+  display: block;
+}
+
+/* ===== 次の問題ボタン ===== */
+
+.next-btn {
+  width: 100%;
+
+  border: none;
+
+  background: #6366f1;
+
+  color: white;
+
+  font-size: 16px;
+
+  font-weight: bold;
+
+  padding: 14px 20px;
+
+  border-radius: 16px;
+
+  cursor: pointer;
+
+  margin-top: 16px;
+
+  transition:
+    transform 0.15s ease;
+}
+
+.next-btn:active {
+  transform: scale(0.96);
+}
+
+/* ===== 結果画面 ===== */
+
+.result-screen {
+  min-height: 100vh;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 24px;
+
+  box-sizing: border-box;
+}
+
+.result-screen.hidden {
+  display: none !important;
+}
+
+.result-card {
+  width: 100%;
+
+  max-width: 480px;
+
+  box-sizing: border-box;
+
+  background: rgba(255,255,255,0.97);
+
+  color: #333;
+
+  border-radius: 24px;
+
+  padding: 30px 24px;
+
+  text-align: center;
+
+  box-shadow:
+    0 15px 35px rgba(0,0,0,0.2);
+}
+
+.result-title {
+  font-size: 26px;
+
+  font-weight: bold;
+
+  margin-bottom: 20px;
+}
+
+.score-label {
+  font-size: 15px;
+
+  color: #666;
+
+  margin-bottom: 4px;
+}
+
+.score {
+  font-size: 56px;
+
+  font-weight: bold;
+
+  color: #6366f1;
+
+  line-height: 1.2;
+
+  margin-bottom: 12px;
+}
+
+.result-message {
+  font-size: 15px;
+
+  line-height: 1.7;
+
+  margin-bottom: 22px;
+}
+
+/* ===== もう一度遊ぶ ===== */
+
+.main-btn {
+  display: block;
+
+  width: 100%;
+
+  border: none;
+
+  padding: 16px 20px;
+
+  background: #6366f1;
+
+  color: white;
+
+  font-size: 16px;
+
+  font-weight: bold;
+
+  border-radius: 18px;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 16px rgba(0,0,0,0.15);
+
+  transition:
+    transform 0.15s ease;
+}
+
+.main-btn:active {
+  transform: scale(0.96);
+}
+
+/* ===== ゲーム一覧に戻る ===== */
+
+.summary-btn {
+  display: block;
+
+  width: 100%;
+
+  margin-top: 12px;
+
+  padding: 16px 20px;
+
+  box-sizing: border-box;
+
+  background: rgba(255,255,255,0.9);
+
+  color: #6366f1;
+
+  font-size: 16px;
+
+  font-weight: bold;
+
+  text-decoration: none;
+
+  text-align: center;
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 10px 20px rgba(0,0,0,0.15);
+
+  transition:
+    transform 0.15s ease;
+}
+
+.summary-btn:active {
+  transform: scale(0.96);
+}
+
+/* ===== 詐欺について学ぶ ===== */
+
+.sub-btn {
+  display: block;
+
+  width: 100%;
+
+  margin-top: 12px;
+
+  padding: 16px 20px;
+
+  box-sizing: border-box;
+
+  border: none;
+
+  background: white;
+
+  color: #6366f1;
+
+  font-size: 16px;
+
+  font-weight: bold;
+
+  border-radius: 18px;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 10px 20px rgba(0,0,0,0.15);
+
+  transition:
+    transform 0.15s ease;
+}
+
+.sub-btn:active {
+  transform: scale(0.96);
+}
+
+/* ===== アニメーション ===== */
+
+.fade {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+}
+
+/* ===== スマホ ===== */
+
+@media (max-width: 480px) {
+
+  body {
+    padding: 16px;
+  }
+
+  .game-title {
+    font-size: 24px;
+  }
+
+  .card {
+    padding: 20px 16px;
+  }
+
+  .answer-area {
+    padding: 14px;
+  }
+
+  .result-card {
+    padding: 28px 20px;
+  }
+
+  .result-title {
+    font-size: 26px;
+  }
+
+  .score {
+    font-size: 52px;
+  }
+}
