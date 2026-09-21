@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>詐欺メッセージ復元パズル</title>
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+</head>
+
+<body>
+
+  <main class="app">
+
+    <!-- =========================
+         ゲーム画面
+    ========================== -->
+
+    <section id="gameScreen">
+
+      <div class="top-area">
+
+        <div class="game-title">
+          🧩 詐欺メッセージ復元パズル
+        </div>
+
+        <div
+          class="progress-text"
+          id="progressText"
+        >
+          1 / 5
+        </div>
+
+        <div class="progress-bar">
+
+          <div
+            class="progress-fill"
+            id="progressFill"
+          ></div>
+
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="question-label">
+          メッセージを正しい順番に戻そう！
+        </div>
+
+
+        <div class="instruction">
+          下のパーツを順番にタップしてください
+        </div>
+
+
+        <!-- 復元された文章 -->
+
+        <div
+          class="answer-area"
+          id="answerArea"
+        >
+          <div class="answer-placeholder">
+            ここにメッセージが復元されます
+          </div>
+        </div>
+
+
+        <!-- メッセージパーツ -->
+
+        <div
+  class="parts-area"
+  id="partsArea"
+></div>
+
+<button
+  type="button"
+  class="reset-btn"
+  id="resetButton"
+>
+  ↩️ リセット
+</button>
+
+<div
+  class="feedback"
+  id="feedback"
+></div>
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         結果画面
+    ========================== -->
+
+    <section
+      id="resultScreen"
+      class="result-screen hidden"
+    >
+
+      <div class="result-card">
+
+        <div class="result-title">
+          🎉 復元終了！
+        </div>
+
+
+        <div class="score-label">
+          あなたのスコア
+        </div>
+
+
+        <div
+          class="score"
+          id="finalScore"
+        >
+          0 / 100
+        </div>
+
+
+        <div
+          class="result-message"
+          id="resultMessage"
+        ></div>
+
+
+        <button
+          class="main-btn"
+          id="restartButton"
+        >
+          🔄 もう一度遊ぶ
+        </button>
+
+
+        <a
+          class="police-btn"
+          href="https://www.police.pref.osaka.lg.jp/seikatsu/tokusyusagi/8083.html"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          🚨 大阪府警の特殊詐欺対策を見る
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>
