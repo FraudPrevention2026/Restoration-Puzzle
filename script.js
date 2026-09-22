@@ -559,8 +559,9 @@ function checkAnswer() {
   feedback.appendChild(
     nextButton
   );
+   feedback.classList.add("show");
 }
-feedback.classList.add("show");
+
 
 /* =========================================================
    次の問題
