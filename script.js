@@ -271,8 +271,8 @@ function showQuestion() {
     }
   );
 
-
-  feedback.innerHTML = "";
+feedback.innerHTML = "";
+feedback.classList.remove("show");
 }
 
 
@@ -560,7 +560,7 @@ function checkAnswer() {
     nextButton
   );
 }
-
+feedback.classList.add("show");
 
 /* =========================================================
    次の問題
