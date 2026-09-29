@@ -117,6 +117,9 @@ body {
 
   margin-bottom: 18px;
 }
+.instruction {
+  color: white;
+}
 
 /* ===== 復元エリア ===== */
 
@@ -479,7 +482,7 @@ body {
 
 /* ===== 詐欺について学ぶ ===== */
 
-.polic-btn {
+.police-btn {
   display: block;
 
   width: 100%;
@@ -511,10 +514,9 @@ body {
     transform 0.15s ease;
 }
 
-.sub-btn:active {
+.police-btn:active {
   transform: scale(0.96);
 }
-
 /* ===== アニメーション ===== */
 
 .fade {
