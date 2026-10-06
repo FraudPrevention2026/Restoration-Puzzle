@@ -217,7 +217,7 @@ function showQuestion() {
     `${currentQuestion + 1} / 5`;
 
   progressFill.style.width =
-    `${((currentQuestion + 1) / 5) * 100}%`;
+  `${(currentQuestion / 5) * 100}%`;
 
 
   /* 復元エリアを初期化 */
